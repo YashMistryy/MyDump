@@ -1,0 +1,32 @@
+
+from sys import flags
+from django.conf import settings
+from django.utils.deprecation import MiddlewareMixin
+from django.shortcuts import redirect
+from django.http import JsonResponse
+import logging
+from django.http import HttpResponseRedirect
+log = logging.getLogger(__name__)
+from .views.otp_base_login import *
+
+
+
+class  JwtAuthRedirectionMiddleware(MiddlewareMixin):
+    def process_request(self, request):
+        token = request.GET.get('bgsm_jwt')
+        #log.info('Token RECIEVED :$$$$$$$$$$$$$$$$$$$$$$$$$$ {}'.format(token))
+        #if request.is_ajax():
+            #log.info('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ ITS AJAX REQ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+            #log.info(request.path)
+            #if(request.path == '/myPath'):
+                #log.info("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ CUSTOM AJAX REQ HERE$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+                #log.info(request.session.get('bgsm_jwt'))
+                #data =  {"msg","success"}
+                #return JsonResponse(data)
+            #if request.user.is_authenticated:
+                #console.log('################################# HEADERS  {}'.format(request.META))
+                #console.log('################################# HEADERS  {}')
+    def process_response(self, request , response):
+        token = request.GET.get('bgsm_jwt')
+        #log.info('Token RECIEVED :$$$$$$$$$$$$$$$$$$$$$$$$$$ {}'.format(token))
+        return response
